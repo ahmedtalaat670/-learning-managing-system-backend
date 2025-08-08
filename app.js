@@ -16,7 +16,6 @@ const studentCourseProgressRoutes = require("./routes/student-routes/course-prog
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
