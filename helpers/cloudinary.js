@@ -6,12 +6,29 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const uploadMediaToCloudinary = async (filePath) => {
+const uploadMediaToCloudinary = async (file, userId) => {
   try {
-    const result = await cloudinary.uploader.upload(filePath, {
-      resource_type: "auto",
+    console.log(file.buffer, "file buffer");
+    const uploadResult = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          asset_folder: "upload_profile", // Optional: specify a folder for the image
+          resource_type: "auto",
+          public_id: `${userId}`, // Set the public_id for the image
+        },
+        (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        }
+      );
+
+      // Write the buffer to the stream
+      uploadStream.end(file.buffer);
     });
-    return result;
+    return uploadResult;
   } catch (e) {
     console.log(e);
     throw new Error("Failed to upload the media");

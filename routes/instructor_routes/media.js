@@ -6,11 +6,14 @@ const {
   deleteImageFromCloudinary,
 } = require("../../helpers/cloudinary");
 const router = express.Router();
-const upload = multer({ dest: "uploads/" });
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 router.post("/upload", upload.single("file"), async (req, res) => {
   try {
-    const result = await uploadMediaToCloudinary(req.file.path);
+    console.log(req.body, "request body");
+
+    const result = await uploadMediaToCloudinary(req.file, req.userId);
     res.status(200).json({
       success: true,
       data: result,
@@ -28,7 +31,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
 router.post("/bulk-upload", upload.array("files", 10), async (req, res) => {
   try {
     const uploadFiles = req.files.map((file) =>
-      uploadMediaToCloudinary(file.path)
+      uploadMediaToCloudinary(file, req.userId)
     );
     const result = await Promise.all(uploadFiles);
     res.status(200).json({
