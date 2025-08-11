@@ -22,6 +22,7 @@ const createOrder = async (req, res) => {
       courseId,
       coursePricing,
     } = req.body;
+    console.log(req.body, "request body");
 
     const create_payment_json = {
       intent: "sale",
