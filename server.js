@@ -16,7 +16,7 @@ const studentCourseProgressRoutes = require("./routes/student-routes/course-prog
 
 app.use(
   cors({
-    origin: "https://learning-managing-system-frontend-sage.vercel.app",
+    origin: "https://learning-managing-system-frontend-sage.vercel.app/",
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
