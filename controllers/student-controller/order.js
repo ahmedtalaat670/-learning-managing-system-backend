@@ -29,8 +29,8 @@ const createOrder = async (req, res) => {
         payment_method: "paypal",
       },
       redirect_urls: {
-        return_url: `${process.env.CLIENT_URL}/payment-return`,
-        cancel_url: `${process.env.CLIENT_URL}/payment-cancel`,
+        return_url: `https://learning-managing-system-frontend-sage.vercel.app/payment-return`,
+        cancel_url: `https://learning-managing-system-frontend-sage.vercel.app/payment-cancel`,
       },
       transactions: [
         {
